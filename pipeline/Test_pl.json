@@ -1,0 +1,74 @@
+{
+	"name": "Test_pl",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Binary1",
+						"type": "DatasetReference",
+						"parameters": {
+							"Path": {
+								"value": "@pipeline().parameters.SourcePath",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Binary1",
+						"type": "DatasetReference",
+						"parameters": {
+							"Path": {
+								"value": "@pipeline().parameters.TragetPath",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"SourcePath": {
+				"type": "string",
+				"defaultValue": "rbazuretrainingsqlvmbackup"
+			},
+			"TragetPath": {
+				"type": "string",
+				"defaultValue": "targetcontainer"
+			}
+		},
+		"annotations": []
+	}
+}
